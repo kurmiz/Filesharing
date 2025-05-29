@@ -2,7 +2,10 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="theme-color" content="#667eea">
     <title>LAN File Sharing</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
@@ -29,22 +32,22 @@
             <h2>📡 Server Status</h2>
             <div class="status-info">
                 <div class="status-item">
-                    <strong>Local IP:</strong> 
+                    <strong>Local IP:</strong>
                     <span class="ip-address">{{ local_ip }}</span>
                 </div>
                 <div class="status-item">
-                    <strong>Port:</strong> 
+                    <strong>Port:</strong>
                     <span class="port">{{ port }}</span>
                 </div>
                 <div class="status-item">
-                    <strong>Server URL:</strong> 
+                    <strong>Server URL:</strong>
                     <span class="server-url">
                         <a href="{{ server_url }}" target="_blank">{{ server_url }}</a>
                     </span>
                 </div>
                 {% if shared_folder %}
                 <div class="status-item">
-                    <strong>Shared Folder:</strong> 
+                    <strong>Shared Folder:</strong>
                     <span class="shared-folder">{{ shared_folder }}</span>
                 </div>
                 {% endif %}
@@ -56,7 +59,7 @@
             <h2>📁 Select Folder to Share</h2>
             <form method="POST" action="{{ url_for('set_folder') }}" class="folder-form">
                 <div class="input-group">
-                    <input type="text" name="folder_path" placeholder="Enter folder path (e.g., D:\MyFiles)" 
+                    <input type="text" name="folder_path" placeholder="Enter folder path (e.g., D:\MyFiles)"
                            value="{{ shared_folder or '' }}" required>
                     <button type="submit" class="btn btn-primary">Share Folder</button>
                 </div>

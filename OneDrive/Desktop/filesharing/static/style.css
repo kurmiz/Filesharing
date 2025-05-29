@@ -1,4 +1,8 @@
 /* Reset and Base Styles */
+:root {
+    --vh: 1vh;
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -9,8 +13,11 @@ body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     min-height: 100vh;
+    min-height: calc(var(--vh, 1vh) * 100);
     color: #333;
     line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
 
 .container {
@@ -46,8 +53,8 @@ header p {
 }
 
 /* Cards */
-.card, .status-card, .actions-card, .qr-card, .upload-card, .info-card, 
-.instructions-card, .files-card, .breadcrumb-card, .connect-card, 
+.card, .status-card, .actions-card, .qr-card, .upload-card, .info-card,
+.instructions-card, .files-card, .breadcrumb-card, .connect-card,
 .quick-connect-card, .recent-card, .scanner-card, .tips-card {
     background: white;
     border-radius: 15px;
@@ -516,40 +523,549 @@ header p {
 }
 
 /* Responsive Design */
-@media (max-width: 768px) {
+
+/* Small mobile devices */
+@media (max-width: 480px) {
     .container {
-        padding: 10px;
+        padding: 8px;
     }
-    
+
     header h1 {
-        font-size: 2rem;
+        font-size: 1.8rem;
+        margin-bottom: 8px;
     }
-    
+
+    header p {
+        font-size: 1rem;
+    }
+
+    /* Cards */
+    .card, .status-card, .actions-card, .qr-card, .upload-card, .info-card,
+    .instructions-card, .files-card, .breadcrumb-card, .connect-card,
+    .quick-connect-card, .recent-card, .scanner-card, .tips-card {
+        padding: 15px;
+        margin-bottom: 15px;
+        border-radius: 10px;
+    }
+
+    /* Status card improvements */
+    .status-info {
+        gap: 10px;
+    }
+
+    .status-item {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 8px;
+        padding: 12px;
+    }
+
+    .status-item strong {
+        font-size: 14px;
+    }
+
+    .ip-address, .port, .server-url {
+        font-size: 12px;
+        padding: 8px;
+        word-break: break-all;
+    }
+
+    /* Form improvements */
     .input-group {
         flex-direction: column;
         align-items: stretch;
+        gap: 8px;
     }
-    
+
     .input-group label {
         min-width: auto;
+        font-size: 14px;
+        margin-bottom: 5px;
     }
-    
+
+    .input-group input {
+        min-width: auto;
+        padding: 14px;
+        font-size: 16px; /* Prevents zoom on iOS */
+    }
+
+    /* Button improvements */
+    .btn {
+        padding: 14px 20px;
+        font-size: 14px;
+        width: 100%;
+        margin-bottom: 8px;
+    }
+
     .action-buttons {
         flex-direction: column;
+        gap: 10px;
     }
-    
+
+    .header-actions {
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .header-actions .btn {
+        margin-bottom: 5px;
+    }
+
+    /* File browser improvements */
     .file-item {
         flex-direction: column;
         align-items: stretch;
-        gap: 10px;
+        gap: 12px;
+        padding: 12px;
     }
-    
+
+    .file-info {
+        text-align: center;
+    }
+
+    .file-name {
+        font-size: 14px;
+        word-break: break-word;
+    }
+
+    .file-size {
+        font-size: 11px;
+    }
+
     .file-actions {
         margin-left: 0;
         text-align: center;
     }
-    
+
+    .file-actions .btn {
+        width: 100%;
+        margin-bottom: 0;
+    }
+
+    /* Breadcrumb improvements */
+    .breadcrumb {
+        flex-wrap: wrap;
+        gap: 5px;
+    }
+
+    .breadcrumb-item {
+        font-size: 12px;
+        padding: 8px 12px;
+    }
+
+    .breadcrumb-separator {
+        font-size: 12px;
+    }
+
+    /* Upload area improvements */
+    .upload-area {
+        padding: 20px;
+    }
+
+    .upload-icon {
+        font-size: 2rem;
+        margin-bottom: 10px;
+    }
+
+    .upload-content p {
+        font-size: 14px;
+        margin-bottom: 15px;
+    }
+
+    /* QR code improvements */
+    .qr-code {
+        max-width: 150px;
+    }
+
+    .qr-url {
+        font-size: 11px;
+        padding: 8px;
+    }
+
+    /* Quick actions */
     .quick-actions {
         flex-direction: column;
+        gap: 8px;
+    }
+
+    /* Instructions improvements */
+    .instruction-step {
+        flex-direction: column;
+        gap: 10px;
+        text-align: center;
+    }
+
+    .step-number {
+        align-self: center;
+    }
+
+    .step-content {
+        text-align: left;
+    }
+
+    /* Connect page improvements */
+    .url-input-group {
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .url-input {
+        font-size: 16px; /* Prevents zoom on iOS */
+        padding: 14px;
+    }
+
+    /* Recent connections */
+    .recent-item {
+        flex-direction: column;
+        gap: 10px;
+        text-align: center;
+    }
+
+    .recent-info {
+        margin-bottom: 8px;
+    }
+
+    /* Tips list */
+    .tips-list li {
+        font-size: 14px;
+        padding: 12px;
+    }
+}
+
+/* Tablet and medium mobile devices */
+@media (max-width: 768px) and (min-width: 481px) {
+    .container {
+        padding: 15px;
+    }
+
+    header h1 {
+        font-size: 2.2rem;
+    }
+
+    header p {
+        font-size: 1.1rem;
+    }
+
+    /* Cards */
+    .card, .status-card, .actions-card, .qr-card, .upload-card, .info-card,
+    .instructions-card, .files-card, .breadcrumb-card, .connect-card,
+    .quick-connect-card, .recent-card, .scanner-card, .tips-card {
+        padding: 20px;
+    }
+
+    /* Status improvements */
+    .status-item {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 8px;
+    }
+
+    /* Form improvements */
+    .input-group {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 10px;
+    }
+
+    .input-group label {
+        min-width: auto;
+    }
+
+    .input-group input {
+        min-width: auto;
+        font-size: 16px; /* Prevents zoom on iOS */
+    }
+
+    /* Button improvements */
+    .action-buttons {
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    .header-actions {
+        gap: 10px;
+    }
+
+    /* File browser */
+    .file-item {
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+
+    .file-info {
+        flex: 1;
+        min-width: 200px;
+    }
+
+    .file-actions {
+        margin-left: 0;
+        flex-shrink: 0;
+    }
+
+    /* Quick actions */
+    .quick-actions {
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+
+    .quick-actions .btn {
+        flex: 1;
+        min-width: 120px;
+    }
+
+    /* Connect page */
+    .url-input-group {
+        flex-direction: row;
+        gap: 10px;
+    }
+
+    .url-input {
+        flex: 1;
+        font-size: 16px; /* Prevents zoom on iOS */
+    }
+}
+
+/* Large tablets and small desktops */
+@media (max-width: 1024px) and (min-width: 769px) {
+    .container {
+        padding: 20px;
+    }
+
+    /* Adjust grid layouts for better tablet experience */
+    .action-buttons {
+        justify-content: center;
+        gap: 15px;
+    }
+
+    .file-list {
+        gap: 12px;
+    }
+
+    .status-info {
+        gap: 12px;
+    }
+}
+
+/* Touch-friendly improvements for all mobile devices */
+@media (max-width: 768px) {
+    /* Increase touch targets */
+    .btn {
+        min-height: 44px; /* Apple's recommended minimum touch target */
+        touch-action: manipulation; /* Prevents double-tap zoom */
+    }
+
+    .breadcrumb-item {
+        min-height: 44px;
+        display: flex;
+        align-items: center;
+    }
+
+    .file-item {
+        min-height: 60px;
+    }
+
+    /* Improve text readability */
+    body {
+        -webkit-text-size-adjust: 100%;
+        text-size-adjust: 100%;
+    }
+
+    /* Prevent horizontal scroll */
+    .container {
+        overflow-x: hidden;
+    }
+
+    /* Improve form usability */
+    input, textarea, select {
+        font-size: 16px; /* Prevents zoom on iOS */
+    }
+
+    /* Better spacing for mobile */
+    h2 {
+        font-size: 1.4rem;
+        margin-bottom: 15px;
+    }
+
+    h3 {
+        font-size: 1.2rem;
+        margin-bottom: 12px;
+    }
+
+    /* Improve table-like layouts */
+    .files-header {
+        flex-direction: column;
+        gap: 10px;
+        text-align: center;
+    }
+
+    .files-count {
+        align-self: center;
+    }
+}
+
+/* Additional mobile-specific improvements */
+@media (max-width: 480px) {
+    /* Improve server URL display on very small screens */
+    .server-url a {
+        word-break: break-all;
+        font-size: 11px;
+        line-height: 1.3;
+    }
+
+    /* Better shared folder path display */
+    .shared-folder {
+        word-break: break-all;
+        font-size: 11px;
+        line-height: 1.3;
+    }
+
+    /* Improve flash messages */
+    .flash-message {
+        padding: 12px;
+        font-size: 14px;
+        border-radius: 6px;
+    }
+
+    /* Better help text */
+    .help-text {
+        font-size: 11px;
+        line-height: 1.4;
+    }
+
+    /* Improve empty folder display */
+    .empty-folder {
+        padding: 40px 15px;
+    }
+
+    .empty-icon {
+        font-size: 3rem;
+        margin-bottom: 15px;
+    }
+
+    /* Better instruction items */
+    .instruction-item {
+        padding: 12px;
+        font-size: 14px;
+    }
+
+    /* Improve scan results */
+    .scan-results {
+        padding: 12px;
+        font-size: 14px;
+    }
+
+    /* Better recent connections display */
+    .recent-info strong {
+        font-size: 13px;
+        word-break: break-all;
+    }
+
+    .recent-info small {
+        font-size: 11px;
+    }
+}
+
+/* Landscape orientation improvements for mobile */
+@media (max-width: 768px) and (orientation: landscape) {
+    header h1 {
+        font-size: 1.8rem;
+        margin-bottom: 5px;
+    }
+
+    header p {
+        font-size: 0.9rem;
+        margin-bottom: 15px;
+    }
+
+    .card, .status-card, .actions-card, .qr-card, .upload-card, .info-card,
+    .instructions-card, .files-card, .breadcrumb-card, .connect-card,
+    .quick-connect-card, .recent-card, .scanner-card, .tips-card {
+        padding: 15px;
+        margin-bottom: 15px;
+    }
+
+    .upload-area {
+        padding: 15px;
+    }
+
+    .upload-icon {
+        font-size: 1.5rem;
+        margin-bottom: 8px;
+    }
+}
+
+/* Utility classes for better mobile experience */
+.mobile-hidden {
+    display: block;
+}
+
+.mobile-only {
+    display: none;
+}
+
+@media (max-width: 768px) {
+    .mobile-hidden {
+        display: none;
+    }
+
+    .mobile-only {
+        display: block;
+    }
+
+    .mobile-flex {
+        display: flex;
+    }
+
+    .mobile-center {
+        text-align: center;
+    }
+
+    .mobile-full-width {
+        width: 100%;
+    }
+}
+
+/* High DPI display improvements */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+    .qr-code {
+        image-rendering: -webkit-optimize-contrast;
+        image-rendering: crisp-edges;
+    }
+}
+
+/* Dark mode support for mobile (if system preference is dark) */
+@media (prefers-color-scheme: dark) and (max-width: 768px) {
+    body {
+        background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+    }
+
+    .card, .status-card, .actions-card, .qr-card, .upload-card, .info-card,
+    .instructions-card, .files-card, .breadcrumb-card, .connect-card,
+    .quick-connect-card, .recent-card, .scanner-card, .tips-card {
+        background: #34495e;
+        color: #ecf0f1;
+    }
+
+    .status-item, .file-item, .instruction-item, .recent-item {
+        background: #2c3e50;
+        color: #ecf0f1;
+    }
+
+    .upload-area {
+        background: #2c3e50;
+        border-color: #3498db;
+        color: #ecf0f1;
+    }
+
+    input {
+        background: #2c3e50;
+        color: #ecf0f1;
+        border-color: #34495e;
+    }
+
+    input:focus {
+        border-color: #3498db;
     }
 }

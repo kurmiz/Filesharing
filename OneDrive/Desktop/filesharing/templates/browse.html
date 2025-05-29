@@ -2,7 +2,10 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="theme-color" content="#667eea">
     <title>Browse Files - LAN File Sharing</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
@@ -62,7 +65,7 @@
                     <div class="file-info">
                         <div class="file-name">
                             {% if item.type == 'directory' %}
-                                <a href="{{ url_for('browse', subpath=(current_path + '/' + item.name) if current_path else item.name) }}" 
+                                <a href="{{ url_for('browse', subpath=(current_path + '/' + item.name) if current_path else item.name) }}"
                                    class="folder-link">{{ item.name }}</a>
                             {% else %}
                                 {{ item.name }}
@@ -74,12 +77,12 @@
                     </div>
                     <div class="file-actions">
                         {% if item.type == 'file' %}
-                            <a href="{{ url_for('download_file', filename=(current_path + '/' + item.name) if current_path else item.name) }}" 
+                            <a href="{{ url_for('download_file', filename=(current_path + '/' + item.name) if current_path else item.name) }}"
                                class="btn btn-download" download>
                                 ⬇️ Download
                             </a>
                         {% else %}
-                            <a href="{{ url_for('browse', subpath=(current_path + '/' + item.name) if current_path else item.name) }}" 
+                            <a href="{{ url_for('browse', subpath=(current_path + '/' + item.name) if current_path else item.name) }}"
                                class="btn btn-open">
                                 📂 Open
                             </a>
@@ -118,7 +121,7 @@
                 🔄 Refresh
             </button>
             {% if current_path %}
-            <a href="{{ url_for('browse', subpath='/'.join(current_path.split('/')[:-1])) if '/' in current_path else url_for('browse') }}" 
+            <a href="{{ url_for('browse', subpath='/'.join(current_path.split('/')[:-1])) if '/' in current_path else url_for('browse') }}"
                class="btn btn-back">
                 ⬅️ Back
             </a>

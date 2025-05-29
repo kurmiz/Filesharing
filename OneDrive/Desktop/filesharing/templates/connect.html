@@ -2,7 +2,10 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="theme-color" content="#667eea">
     <title>Connect to Others - LAN File Sharing</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
@@ -34,21 +37,21 @@
             <form method="POST" action="{{ url_for('connect_to') }}" class="connect-form">
                 <div class="input-group">
                     <label for="remote_ip">IP Address:</label>
-                    <input type="text" id="remote_ip" name="remote_ip" 
-                           placeholder="e.g., 192.168.1.5" 
+                    <input type="text" id="remote_ip" name="remote_ip"
+                           placeholder="e.g., 192.168.1.5"
                            pattern="^(?:[0-9]{1,3}\.){3}[0-9]{1,3}$"
                            required>
                 </div>
-                
+
                 <div class="input-group">
                     <label for="remote_port">Port:</label>
-                    <input type="number" id="remote_port" name="remote_port" 
-                           placeholder="8080" 
+                    <input type="number" id="remote_port" name="remote_port"
+                           placeholder="8080"
                            value="8080"
                            min="1" max="65535"
                            required>
                 </div>
-                
+
                 <button type="submit" class="btn btn-primary btn-connect">
                     🔗 Connect
                 </button>
@@ -84,7 +87,7 @@
                         <p>Ask the person sharing files for their IP address and port number</p>
                     </div>
                 </div>
-                
+
                 <div class="instruction-step">
                     <div class="step-number">2</div>
                     <div class="step-content">
@@ -92,7 +95,7 @@
                         <p>Fill in the IP address and port in the form above</p>
                     </div>
                 </div>
-                
+
                 <div class="instruction-step">
                     <div class="step-number">3</div>
                     <div class="step-content">
@@ -135,10 +138,10 @@
                     const urlObj = new URL(url);
                     const ip = urlObj.hostname;
                     const port = urlObj.port || '8080';
-                    
+
                     document.getElementById('remote_ip').value = ip;
                     document.getElementById('remote_port').value = port;
-                    
+
                     // Open in new tab
                     window.open(url + '/browse', '_blank');
                 } catch (e) {
@@ -150,11 +153,11 @@
         function scanNetwork() {
             const scanBtn = document.getElementById('scanBtn');
             const scanResults = document.getElementById('scanResults');
-            
+
             scanBtn.disabled = true;
             scanBtn.textContent = '🔍 Scanning...';
             scanResults.innerHTML = '<p>Scanning network for active servers...</p>';
-            
+
             // This is a placeholder - actual network scanning would require backend implementation
             setTimeout(() => {
                 scanResults.innerHTML = `
@@ -170,12 +173,12 @@
         function loadRecentConnections() {
             const recent = JSON.parse(localStorage.getItem('recentConnections') || '[]');
             const container = document.getElementById('recentConnections');
-            
+
             if (recent.length === 0) {
                 container.innerHTML = '<p class="no-recent">No recent connections</p>';
                 return;
             }
-            
+
             container.innerHTML = recent.map(conn => `
                 <div class="recent-item">
                     <div class="recent-info">
@@ -196,16 +199,16 @@
         function saveRecentConnection(ip, port) {
             const recent = JSON.parse(localStorage.getItem('recentConnections') || '[]');
             const newConn = { ip, port, timestamp: Date.now() };
-            
+
             // Remove if already exists
             const filtered = recent.filter(conn => !(conn.ip === ip && conn.port === port));
-            
+
             // Add to beginning
             filtered.unshift(newConn);
-            
+
             // Keep only last 5
             const limited = filtered.slice(0, 5);
-            
+
             localStorage.setItem('recentConnections', JSON.stringify(limited));
             loadRecentConnections();
         }

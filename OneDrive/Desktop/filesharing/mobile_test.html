@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="theme-color" content="#667eea">
+    <title>Mobile Responsive Test - LAN File Sharing</title>
+    <link rel="stylesheet" href="static/style.css">
+    <style>
+        /* Test styles to demonstrate responsiveness */
+        .test-info {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 8px;
+            color: #856404;
+        }
+        
+        .screen-size {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            background: rgba(0,0,0,0.8);
+            color: white;
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 12px;
+            z-index: 1000;
+        }
+        
+        .responsive-demo {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+        
+        .demo-card {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        @media (max-width: 768px) {
+            .responsive-demo {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="screen-size" id="screenSize"></div>
+    
+    <div class="container">
+        <header>
+            <h1>📱 Mobile Responsive Test</h1>
+            <p>Testing the improved mobile responsiveness</p>
+            <div class="header-actions">
+                <a href="/" class="btn btn-secondary">🏠 Back to Home</a>
+                <a href="/browse" class="btn btn-success">📂 Browse Files</a>
+                <a href="/connect" class="btn btn-info">🔗 Connect</a>
+            </div>
+        </header>
+
+        <div class="test-info">
+            <h3>📋 Responsive Design Test</h3>
+            <p>This page demonstrates the mobile responsive improvements made to the LAN File Sharing application. 
+            Resize your browser window or view on different devices to see the responsive behavior.</p>
+        </div>
+
+        <!-- Status Card Test -->
+        <div class="status-card">
+            <h2>📡 Server Status (Mobile Optimized)</h2>
+            <div class="status-info">
+                <div class="status-item">
+                    <strong>Local IP:</strong> 
+                    <span class="ip-address">192.168.1.100</span>
+                </div>
+                <div class="status-item">
+                    <strong>Port:</strong> 
+                    <span class="port">8080</span>
+                </div>
+                <div class="status-item">
+                    <strong>Server URL:</strong> 
+                    <span class="server-url">
+                        <a href="http://192.168.1.100:8080" target="_blank">http://192.168.1.100:8080</a>
+                    </span>
+                </div>
+                <div class="status-item">
+                    <strong>Shared Folder:</strong> 
+                    <span class="shared-folder">C:\Users\Example\Documents\SharedFiles</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Form Test -->
+        <div class="card">
+            <h2>📁 Mobile-Optimized Form</h2>
+            <form class="folder-form">
+                <div class="input-group">
+                    <label for="test-input">Folder Path:</label>
+                    <input type="text" id="test-input" placeholder="Enter folder path (e.g., D:\MyFiles)" required>
+                    <button type="submit" class="btn btn-primary">Share Folder</button>
+                </div>
+                <p class="help-text">
+                    💡 This form is now optimized for mobile devices with proper touch targets and font sizes
+                </p>
+            </form>
+        </div>
+
+        <!-- Action Buttons Test -->
+        <div class="actions-card">
+            <h2>🚀 Mobile-Friendly Actions</h2>
+            <div class="action-buttons">
+                <a href="#" class="btn btn-success">📂 Browse Shared Files</a>
+                <a href="#" class="btn btn-info">🔗 Connect to Others</a>
+                <a href="#" class="btn btn-secondary">⚙️ Settings</a>
+            </div>
+        </div>
+
+        <!-- File Browser Test -->
+        <div class="files-card">
+            <div class="files-header">
+                <h2>📁 Mobile File Browser</h2>
+                <div class="files-count">5 items</div>
+            </div>
+            
+            <div class="file-list">
+                <div class="file-item directory">
+                    <div class="file-icon">📁</div>
+                    <div class="file-info">
+                        <div class="file-name">
+                            <a href="#" class="folder-link">Documents Folder</a>
+                        </div>
+                    </div>
+                    <div class="file-actions">
+                        <a href="#" class="btn btn-open">📂 Open</a>
+                    </div>
+                </div>
+                
+                <div class="file-item file">
+                    <div class="file-icon">📄</div>
+                    <div class="file-info">
+                        <div class="file-name">example-document.pdf</div>
+                        <div class="file-size">2.5 MB</div>
+                    </div>
+                    <div class="file-actions">
+                        <a href="#" class="btn btn-download">⬇️ Download</a>
+                    </div>
+                </div>
+                
+                <div class="file-item file">
+                    <div class="file-icon">📄</div>
+                    <div class="file-info">
+                        <div class="file-name">very-long-filename-that-should-wrap-properly-on-mobile-devices.txt</div>
+                        <div class="file-size">1.2 KB</div>
+                    </div>
+                    <div class="file-actions">
+                        <a href="#" class="btn btn-download">⬇️ Download</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Upload Test -->
+        <div class="upload-card">
+            <h2>📤 Mobile Upload Area</h2>
+            <div class="upload-area" id="uploadArea">
+                <input type="file" id="fileInput" multiple style="display: none;">
+                <div class="upload-content">
+                    <div class="upload-icon">📁</div>
+                    <p>Tap to select files or drag and drop</p>
+                    <button type="button" class="btn btn-secondary" onclick="document.getElementById('fileInput').click()">
+                        Choose Files
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Responsive Demo Grid -->
+        <div class="card">
+            <h2>📐 Responsive Grid Demo</h2>
+            <div class="responsive-demo">
+                <div class="demo-card">
+                    <h3>Card 1</h3>
+                    <p>This card adapts to screen size</p>
+                </div>
+                <div class="demo-card">
+                    <h3>Card 2</h3>
+                    <p>On mobile, cards stack vertically</p>
+                </div>
+                <div class="demo-card">
+                    <h3>Card 3</h3>
+                    <p>On desktop, cards are in a grid</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Instructions -->
+        <div class="instructions-card">
+            <h2>📋 Mobile Improvements Made</h2>
+            <div class="instructions">
+                <div class="instruction-item">
+                    <strong>✅ Touch-Friendly:</strong> All buttons and interactive elements are now at least 44px tall for easy tapping
+                </div>
+                <div class="instruction-item">
+                    <strong>✅ Responsive Layout:</strong> Content stacks vertically on mobile and adapts to different screen sizes
+                </div>
+                <div class="instruction-item">
+                    <strong>✅ Readable Text:</strong> Font sizes are optimized for mobile readability
+                </div>
+                <div class="instruction-item">
+                    <strong>✅ Form Optimization:</strong> Input fields prevent zoom on iOS and have proper spacing
+                </div>
+                <div class="instruction-item">
+                    <strong>✅ Better Navigation:</strong> Breadcrumbs and navigation elements work well on small screens
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="static/script.js"></script>
+    <script>
+        // Display current screen size
+        function updateScreenSize() {
+            const screenSize = document.getElementById('screenSize');
+            screenSize.textContent = `${window.innerWidth} × ${window.innerHeight}`;
+        }
+        
+        updateScreenSize();
+        window.addEventListener('resize', updateScreenSize);
+        window.addEventListener('orientationchange', () => {
+            setTimeout(updateScreenSize, 100);
+        });
+    </script>
+</body>
+</html>
