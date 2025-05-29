@@ -1,6 +1,46 @@
 /* Reset and Base Styles */
 :root {
     --vh: 1vh;
+
+    /* Light mode colors */
+    --bg-gradient-start: #667eea;
+    --bg-gradient-end: #764ba2;
+    --text-primary: #333;
+    --text-secondary: #6c757d;
+    --text-white: #fff;
+    --card-bg: #ffffff;
+    --card-shadow: rgba(0,0,0,0.1);
+    --card-hover-shadow: rgba(0,0,0,0.15);
+    --border-color: #e9ecef;
+    --input-bg: #ffffff;
+    --input-border: #e9ecef;
+    --input-focus: #007bff;
+    --status-bg: #f8f9fa;
+    --upload-bg: #f8f9ff;
+    --upload-border: #007bff;
+    --footer-bg: rgba(255, 255, 255, 0.1);
+    --footer-border: rgba(255, 255, 255, 0.2);
+}
+
+/* Dark mode colors */
+[data-theme="dark"] {
+    --bg-gradient-start: #2c3e50;
+    --bg-gradient-end: #34495e;
+    --text-primary: #ecf0f1;
+    --text-secondary: #bdc3c7;
+    --text-white: #ecf0f1;
+    --card-bg: #34495e;
+    --card-shadow: rgba(0,0,0,0.3);
+    --card-hover-shadow: rgba(0,0,0,0.4);
+    --border-color: #2c3e50;
+    --input-bg: #2c3e50;
+    --input-border: #34495e;
+    --input-focus: #3498db;
+    --status-bg: #2c3e50;
+    --upload-bg: #2c3e50;
+    --upload-border: #3498db;
+    --footer-bg: rgba(0, 0, 0, 0.2);
+    --footer-border: rgba(255, 255, 255, 0.1);
 }
 
 * {
@@ -11,13 +51,14 @@
 
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: linear-gradient(135deg, var(--bg-gradient-start) 0%, var(--bg-gradient-end) 100%);
     min-height: 100vh;
     min-height: calc(var(--vh, 1vh) * 100);
-    color: #333;
+    color: var(--text-primary);
     line-height: 1.6;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    transition: background 0.3s ease, color 0.3s ease;
 }
 
 .container {
@@ -30,7 +71,8 @@ body {
 header {
     text-align: center;
     margin-bottom: 30px;
-    color: white;
+    color: var(--text-white);
+    position: relative;
 }
 
 header h1 {
@@ -52,21 +94,59 @@ header p {
     flex-wrap: wrap;
 }
 
+/* Theme Toggle Button */
+.theme-toggle {
+    position: absolute;
+    top: 0;
+    right: 0;
+    background: rgba(255, 255, 255, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 50px;
+    padding: 8px 16px;
+    color: var(--text-white);
+    cursor: pointer;
+    font-size: 14px;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.theme-toggle:hover {
+    background: rgba(255, 255, 255, 0.3);
+    transform: translateY(-2px);
+}
+
+.theme-toggle-icon {
+    font-size: 16px;
+    transition: transform 0.3s ease;
+}
+
+[data-theme="dark"] .theme-toggle-icon.sun {
+    transform: rotate(180deg);
+}
+
+[data-theme="light"] .theme-toggle-icon.moon {
+    transform: rotate(-180deg);
+}
+
 /* Cards */
 .card, .status-card, .actions-card, .qr-card, .upload-card, .info-card,
 .instructions-card, .files-card, .breadcrumb-card, .connect-card,
 .quick-connect-card, .recent-card, .scanner-card, .tips-card {
-    background: white;
+    background: var(--card-bg);
     border-radius: 15px;
     padding: 25px;
     margin-bottom: 20px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 10px 30px var(--card-shadow);
+    transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+    color: var(--text-primary);
 }
 
 .card:hover, .status-card:hover, .actions-card:hover {
     transform: translateY(-5px);
-    box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+    box-shadow: 0 15px 40px var(--card-hover-shadow);
 }
 
 /* Status Card */
@@ -80,21 +160,29 @@ header p {
     justify-content: space-between;
     align-items: center;
     padding: 10px;
-    background: #f8f9fa;
+    background: var(--status-bg);
     border-radius: 8px;
+    transition: background 0.3s ease;
 }
 
-.ip-address, .port, .server-url {
+.ip-address, .port, .server-url, .shared-folder {
     font-family: 'Courier New', monospace;
-    background: #e9ecef;
+    background: var(--border-color);
     padding: 5px 10px;
     border-radius: 5px;
     font-weight: bold;
+    color: var(--text-primary);
+    transition: background 0.3s ease, color 0.3s ease;
 }
 
 .server-url a {
     color: #007bff;
     text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+[data-theme="dark"] .server-url a {
+    color: #3498db;
 }
 
 .server-url a:hover {
@@ -196,22 +284,30 @@ header p {
 .input-group input {
     flex: 1;
     padding: 12px;
-    border: 2px solid #e9ecef;
+    border: 2px solid var(--input-border);
     border-radius: 8px;
     font-size: 14px;
     min-width: 200px;
+    background: var(--input-bg);
+    color: var(--text-primary);
+    transition: border-color 0.3s ease, background 0.3s ease, color 0.3s ease;
 }
 
 .input-group input:focus {
     outline: none;
-    border-color: #007bff;
+    border-color: var(--input-focus);
     box-shadow: 0 0 0 3px rgba(0,123,255,0.1);
+}
+
+[data-theme="dark"] .input-group input:focus {
+    box-shadow: 0 0 0 3px rgba(52,152,219,0.2);
 }
 
 .help-text {
     font-size: 12px;
-    color: #6c757d;
+    color: var(--text-secondary);
     margin-top: 5px;
+    transition: color 0.3s ease;
 }
 
 /* Action Buttons */
@@ -245,18 +341,19 @@ header p {
 
 /* Upload Area */
 .upload-area {
-    border: 3px dashed #007bff;
+    border: 3px dashed var(--upload-border);
     border-radius: 10px;
     padding: 40px;
     text-align: center;
-    background: #f8f9ff;
+    background: var(--upload-bg);
     transition: all 0.3s ease;
     cursor: pointer;
+    color: var(--text-primary);
 }
 
 .upload-area:hover, .upload-area.dragover {
-    border-color: #0056b3;
-    background: #e6f3ff;
+    border-color: var(--input-focus);
+    background: var(--status-bg);
 }
 
 .upload-icon {
@@ -359,13 +456,14 @@ header p {
     display: flex;
     align-items: center;
     padding: 15px;
-    background: #f8f9fa;
+    background: var(--status-bg);
     border-radius: 10px;
     transition: all 0.3s ease;
+    color: var(--text-primary);
 }
 
 .file-item:hover {
-    background: #e9ecef;
+    background: var(--border-color);
     transform: translateX(5px);
 }
 
@@ -431,9 +529,15 @@ header p {
 
 .instruction-item {
     padding: 15px;
-    background: #f8f9fa;
+    background: var(--status-bg);
     border-radius: 8px;
     border-left: 4px solid #007bff;
+    color: var(--text-primary);
+    transition: background 0.3s ease, color 0.3s ease;
+}
+
+[data-theme="dark"] .instruction-item {
+    border-left-color: #3498db;
 }
 
 .instruction-step {
@@ -1068,4 +1172,185 @@ header p {
     input:focus {
         border-color: #3498db;
     }
+}
+
+/* Footer Styles */
+.footer {
+    background: var(--footer-bg);
+    backdrop-filter: blur(10px);
+    border-top: 1px solid var(--footer-border);
+    padding: 20px 0;
+    margin-top: 40px;
+    text-align: center;
+    color: var(--text-white);
+    transition: background 0.3s ease, border-color 0.3s ease;
+}
+
+.footer-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.footer-text {
+    font-size: 14px;
+    opacity: 0.9;
+    margin-bottom: 5px;
+}
+
+.footer-author {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--text-white);
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+    transition: color 0.3s ease;
+}
+
+.footer-author:hover {
+    color: #ffd700;
+}
+
+/* Mobile footer adjustments */
+@media (max-width: 768px) {
+    .footer {
+        padding: 15px 0;
+        margin-top: 30px;
+    }
+
+    .footer-content {
+        padding: 0 15px;
+    }
+
+    .footer-text {
+        font-size: 12px;
+    }
+
+    .footer-author {
+        font-size: 14px;
+    }
+
+    /* Mobile theme toggle adjustments */
+    .theme-toggle {
+        position: fixed;
+        top: 10px;
+        right: 10px;
+        z-index: 1000;
+        font-size: 12px;
+        padding: 6px 12px;
+    }
+}
+
+/* Additional Dark Mode Improvements */
+[data-theme="dark"] {
+    /* Improve readability in dark mode */
+    .file-size {
+        color: var(--text-secondary);
+    }
+
+    .breadcrumb-item {
+        color: #3498db;
+    }
+
+    .breadcrumb-separator {
+        color: var(--text-secondary);
+    }
+
+    .files-count {
+        background: var(--border-color);
+        color: var(--text-primary);
+    }
+
+    .empty-folder {
+        color: var(--text-secondary);
+    }
+
+    .recent-info small {
+        color: var(--text-secondary);
+    }
+
+    .tips-list li {
+        background: var(--status-bg);
+        border-left-color: #3498db;
+        color: var(--text-primary);
+    }
+
+    .scan-results {
+        background: var(--status-bg);
+        color: var(--text-primary);
+    }
+
+    /* Flash messages in dark mode */
+    .flash-success {
+        background: #1e5128;
+        color: #4ade80;
+        border-color: #166534;
+    }
+
+    .flash-error {
+        background: #7f1d1d;
+        color: #f87171;
+        border-color: #991b1b;
+    }
+
+    /* Upload status in dark mode */
+    .upload-status.success {
+        background: #1e5128;
+        color: #4ade80;
+        border-color: #166534;
+    }
+
+    .upload-status.error {
+        background: #7f1d1d;
+        color: #f87171;
+        border-color: #991b1b;
+    }
+}
+
+/* Theme transition animations */
+* {
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+
+/* Smooth theme switching */
+body, .card, .status-card, .actions-card, .qr-card, .upload-card, .info-card,
+.instructions-card, .files-card, .breadcrumb-card, .connect-card,
+.quick-connect-card, .recent-card, .scanner-card, .tips-card {
+    transition: background 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Improve button contrast in dark mode */
+[data-theme="dark"] .btn-primary {
+    background: #3498db;
+}
+
+[data-theme="dark"] .btn-primary:hover {
+    background: #2980b9;
+}
+
+[data-theme="dark"] .btn-success {
+    background: #27ae60;
+}
+
+[data-theme="dark"] .btn-success:hover {
+    background: #229954;
+}
+
+[data-theme="dark"] .btn-info {
+    background: #3498db;
+}
+
+[data-theme="dark"] .btn-info:hover {
+    background: #2980b9;
+}
+
+/* Improve QR code visibility in dark mode */
+[data-theme="dark"] .qr-code {
+    border-color: var(--border-color);
+    background: white;
+    padding: 10px;
+}
+
+[data-theme="dark"] .qr-url {
+    background: var(--status-bg);
+    color: var(--text-primary);
 }

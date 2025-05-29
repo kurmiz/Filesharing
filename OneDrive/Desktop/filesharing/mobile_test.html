@@ -18,7 +18,7 @@
             border-radius: 8px;
             color: #856404;
         }
-        
+
         .screen-size {
             position: fixed;
             top: 10px;
@@ -30,21 +30,21 @@
             font-size: 12px;
             z-index: 1000;
         }
-        
+
         .responsive-demo {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
             gap: 15px;
             margin: 20px 0;
         }
-        
+
         .demo-card {
             background: white;
             padding: 20px;
             border-radius: 10px;
             box-shadow: 0 5px 15px rgba(0,0,0,0.1);
         }
-        
+
         @media (max-width: 768px) {
             .responsive-demo {
                 grid-template-columns: 1fr;
@@ -54,7 +54,7 @@
 </head>
 <body>
     <div class="screen-size" id="screenSize"></div>
-    
+
     <div class="container">
         <header>
             <h1>📱 Mobile Responsive Test</h1>
@@ -67,9 +67,10 @@
         </header>
 
         <div class="test-info">
-            <h3>📋 Responsive Design Test</h3>
-            <p>This page demonstrates the mobile responsive improvements made to the LAN File Sharing application. 
-            Resize your browser window or view on different devices to see the responsive behavior.</p>
+            <h3>📋 Responsive Design & Night Mode Test</h3>
+            <p>This page demonstrates the mobile responsive improvements and night mode feature made to the LAN File Sharing application.
+            Resize your browser window or view on different devices to see the responsive behavior.
+            Use the theme toggle button in the header to switch between light and dark modes.</p>
         </div>
 
         <!-- Status Card Test -->
@@ -77,21 +78,21 @@
             <h2>📡 Server Status (Mobile Optimized)</h2>
             <div class="status-info">
                 <div class="status-item">
-                    <strong>Local IP:</strong> 
+                    <strong>Local IP:</strong>
                     <span class="ip-address">192.168.1.100</span>
                 </div>
                 <div class="status-item">
-                    <strong>Port:</strong> 
+                    <strong>Port:</strong>
                     <span class="port">8080</span>
                 </div>
                 <div class="status-item">
-                    <strong>Server URL:</strong> 
+                    <strong>Server URL:</strong>
                     <span class="server-url">
                         <a href="http://192.168.1.100:8080" target="_blank">http://192.168.1.100:8080</a>
                     </span>
                 </div>
                 <div class="status-item">
-                    <strong>Shared Folder:</strong> 
+                    <strong>Shared Folder:</strong>
                     <span class="shared-folder">C:\Users\Example\Documents\SharedFiles</span>
                 </div>
             </div>
@@ -128,7 +129,7 @@
                 <h2>📁 Mobile File Browser</h2>
                 <div class="files-count">5 items</div>
             </div>
-            
+
             <div class="file-list">
                 <div class="file-item directory">
                     <div class="file-icon">📁</div>
@@ -141,7 +142,7 @@
                         <a href="#" class="btn btn-open">📂 Open</a>
                     </div>
                 </div>
-                
+
                 <div class="file-item file">
                     <div class="file-icon">📄</div>
                     <div class="file-info">
@@ -152,7 +153,7 @@
                         <a href="#" class="btn btn-download">⬇️ Download</a>
                     </div>
                 </div>
-                
+
                 <div class="file-item file">
                     <div class="file-icon">📄</div>
                     <div class="file-info">
@@ -200,9 +201,28 @@
             </div>
         </div>
 
+        <!-- Night Mode Demo -->
+        <div class="card">
+            <h2>🌙 Night Mode Features</h2>
+            <div class="responsive-demo">
+                <div class="demo-card">
+                    <h3>🎨 Theme Toggle</h3>
+                    <p>Click the theme toggle button in the header to switch between light and dark modes. Your preference is saved automatically.</p>
+                </div>
+                <div class="demo-card">
+                    <h3>🔄 System Sync</h3>
+                    <p>The app automatically detects your system's dark mode preference and applies it by default.</p>
+                </div>
+                <div class="demo-card">
+                    <h3>👁️ Eye-Friendly</h3>
+                    <p>Dark mode reduces eye strain in low-light conditions and saves battery on OLED displays.</p>
+                </div>
+            </div>
+        </div>
+
         <!-- Instructions -->
         <div class="instructions-card">
-            <h2>📋 Mobile Improvements Made</h2>
+            <h2>📋 All Improvements Made</h2>
             <div class="instructions">
                 <div class="instruction-item">
                     <strong>✅ Touch-Friendly:</strong> All buttons and interactive elements are now at least 44px tall for easy tapping
@@ -219,9 +239,26 @@
                 <div class="instruction-item">
                     <strong>✅ Better Navigation:</strong> Breadcrumbs and navigation elements work well on small screens
                 </div>
+                <div class="instruction-item">
+                    <strong>✅ Night Mode:</strong> Complete dark theme with proper contrast and eye-friendly colors
+                </div>
+                <div class="instruction-item">
+                    <strong>✅ Theme Persistence:</strong> Your theme preference is saved and restored automatically
+                </div>
+                <div class="instruction-item">
+                    <strong>✅ System Integration:</strong> Automatically follows your device's dark mode setting
+                </div>
             </div>
         </div>
     </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-text">Developed by</div>
+            <div class="footer-author">Abhesh Kurmi</div>
+        </div>
+    </footer>
 
     <script src="static/script.js"></script>
     <script>
@@ -230,7 +267,7 @@
             const screenSize = document.getElementById('screenSize');
             screenSize.textContent = `${window.innerWidth} × ${window.innerHeight}`;
         }
-        
+
         updateScreenSize();
         window.addEventListener('resize', updateScreenSize);
         window.addEventListener('orientationchange', () => {

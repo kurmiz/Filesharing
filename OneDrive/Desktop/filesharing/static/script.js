@@ -204,6 +204,113 @@ function checkNetworkStatus() {
 // Initialize network status checker
 checkNetworkStatus();
 
+// Theme Management
+class ThemeManager {
+    constructor() {
+        this.currentTheme = localStorage.getItem('theme') || 'light';
+        this.init();
+    }
+
+    init() {
+        // Apply saved theme
+        this.applyTheme(this.currentTheme);
+
+        // Create theme toggle button
+        this.createThemeToggle();
+
+        // Listen for system theme changes
+        this.listenForSystemThemeChanges();
+    }
+
+    createThemeToggle() {
+        const headers = document.querySelectorAll('header');
+
+        headers.forEach(header => {
+            // Check if toggle already exists
+            if (header.querySelector('.theme-toggle')) return;
+
+            const themeToggle = document.createElement('button');
+            themeToggle.className = 'theme-toggle';
+            themeToggle.innerHTML = this.getToggleContent();
+            themeToggle.addEventListener('click', () => this.toggleTheme());
+
+            header.appendChild(themeToggle);
+        });
+    }
+
+    getToggleContent() {
+        if (this.currentTheme === 'dark') {
+            return '<span class="theme-toggle-icon sun">☀️</span><span>Light</span>';
+        } else {
+            return '<span class="theme-toggle-icon moon">🌙</span><span>Dark</span>';
+        }
+    }
+
+    toggleTheme() {
+        this.currentTheme = this.currentTheme === 'light' ? 'dark' : 'light';
+        this.applyTheme(this.currentTheme);
+        this.updateToggleButton();
+
+        // Save preference
+        localStorage.setItem('theme', this.currentTheme);
+
+        // Animate the toggle
+        this.animateToggle();
+    }
+
+    applyTheme(theme) {
+        document.documentElement.setAttribute('data-theme', theme);
+
+        // Update meta theme color
+        const metaThemeColor = document.querySelector('meta[name="theme-color"]');
+        if (metaThemeColor) {
+            metaThemeColor.content = theme === 'dark' ? '#2c3e50' : '#667eea';
+        }
+    }
+
+    updateToggleButton() {
+        const toggleButtons = document.querySelectorAll('.theme-toggle');
+        toggleButtons.forEach(button => {
+            button.innerHTML = this.getToggleContent();
+        });
+    }
+
+    animateToggle() {
+        const toggleButtons = document.querySelectorAll('.theme-toggle');
+        toggleButtons.forEach(button => {
+            button.style.transform = 'scale(0.9)';
+            setTimeout(() => {
+                button.style.transform = '';
+            }, 150);
+        });
+    }
+
+    listenForSystemThemeChanges() {
+        if (window.matchMedia) {
+            const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+
+            // Only auto-switch if user hasn't manually set a preference
+            if (!localStorage.getItem('theme')) {
+                this.currentTheme = mediaQuery.matches ? 'dark' : 'light';
+                this.applyTheme(this.currentTheme);
+                this.updateToggleButton();
+            }
+
+            mediaQuery.addEventListener('change', (e) => {
+                // Only auto-switch if user hasn't manually set a preference
+                if (!localStorage.getItem('theme')) {
+                    this.currentTheme = e.matches ? 'dark' : 'light';
+                    this.applyTheme(this.currentTheme);
+                    this.updateToggleButton();
+                }
+            });
+        }
+    }
+}
+
+// Initialize theme manager
+const themeManager = new ThemeManager();
+
 // Mobile-specific enhancements
 document.addEventListener('DOMContentLoaded', function() {
     // Detect mobile device
