@@ -10,6 +10,11 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
+    <!-- Theme Toggle Button -->
+    <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+        🌙 Dark
+    </button>
+
     <div class="container">
         <header>
             <h1>🗂️ LAN File Sharing</h1>
@@ -26,6 +31,60 @@
                 </div>
             {% endif %}
         {% endwith %}
+
+        <!-- Interactive Sharing Hub -->
+        <div class="sharing-hub">
+            <div class="sharing-circle" id="sharingCircle">
+                <div class="sharing-content">
+                    <div class="sharing-icon">📡</div>
+                    <div class="sharing-text">
+                        {% if shared_folder %}
+                            <span class="sharing-status active">Sharing Active</span>
+                            <span class="sharing-subtitle">Click to manage</span>
+                        {% else %}
+                            <span class="sharing-status inactive">Start Sharing</span>
+                            <span class="sharing-subtitle">Click to begin</span>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="sharing-pulse"></div>
+            </div>
+
+            <!-- Connected Users Indicator -->
+            <div class="connected-users-indicator" id="connectedUsersIndicator">
+                <div class="users-count" id="usersCount">0</div>
+                <div class="users-label">Connected</div>
+            </div>
+        </div>
+
+        <!-- User Identity -->
+        <div class="user-identity-card" id="userIdentityCard">
+            <h2>👤 Your Identity</h2>
+            <div class="identity-form">
+                <input type="text" id="usernameInput" placeholder="Enter your name..." maxlength="50">
+                <button id="setUsernameBtn" class="btn btn-primary">Set Name</button>
+            </div>
+            <div class="current-identity" id="currentIdentity" style="display: none;">
+                <span>You are: <strong id="currentUsername"></strong></span>
+                <button id="changeUsernameBtn" class="btn btn-secondary btn-small">Change</button>
+            </div>
+        </div>
+
+        <!-- Connected Users Panel -->
+        <div class="users-panel" id="usersPanel">
+            <h2>👥 Connected Users</h2>
+            <div class="users-list" id="usersList">
+                <div class="no-users" id="noUsers">No users connected</div>
+            </div>
+        </div>
+
+        <!-- Recent Activities -->
+        <div class="activities-panel" id="activitiesPanel">
+            <h2>📊 Recent Activities</h2>
+            <div class="activities-list" id="activitiesList">
+                <div class="no-activities">No recent activities</div>
+            </div>
+        </div>
 
         <!-- Server Status -->
         <div class="status-card">

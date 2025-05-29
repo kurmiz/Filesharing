@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Features Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background: #f5f5f5;
+        }
+        
+        .test-section {
+            background: white;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .sharing-hub {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 40px 0;
+            position: relative;
+            min-height: 300px;
+        }
+        
+        .sharing-circle {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
+        }
+        
+        .sharing-content {
+            text-align: center;
+            color: white;
+            z-index: 2;
+        }
+        
+        .sharing-icon {
+            font-size: 3rem;
+            margin-bottom: 10px;
+        }
+        
+        .connected-users-indicator {
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            background: white;
+            border-radius: 50%;
+            width: 80px;
+            height: 80px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            border: 3px solid #4ade80;
+        }
+        
+        .users-count {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #4ade80;
+        }
+        
+        .users-label {
+            font-size: 0.7rem;
+            color: #666;
+            text-transform: uppercase;
+        }
+        
+        .users-panel {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        
+        .user-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            margin: 10px 0;
+            border-left: 4px solid #4ade80;
+        }
+        
+        .user-name {
+            font-weight: 600;
+            color: #333;
+        }
+        
+        .user-details {
+            font-size: 0.8rem;
+            color: #666;
+        }
+        
+        .status-indicator {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #4ade80;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+        
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+        
+        .btn-primary {
+            background: #667eea;
+            color: white;
+        }
+        
+        input {
+            padding: 10px;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            margin-right: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>🧪 Interactive Features Test Page</h1>
+    
+    <div class="test-section">
+        <h2>1. Interactive Sharing Hub</h2>
+        <div class="sharing-hub">
+            <div class="sharing-circle" onclick="alert('Sharing circle clicked!')">
+                <div class="sharing-content">
+                    <div class="sharing-icon">📡</div>
+                    <div class="sharing-text">
+                        <span style="font-size: 1.2rem; font-weight: 600; color: #4ade80;">Sharing Active</span>
+                        <span style="font-size: 0.9rem; opacity: 0.9;">Click to test</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="connected-users-indicator">
+                <div class="users-count" id="testUsersCount">3</div>
+                <div class="users-label">Connected</div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="test-section">
+        <h2>2. Connected Users Panel</h2>
+        <div class="users-panel">
+            <h3>👥 Connected Users</h3>
+            <div class="user-item">
+                <div>
+                    <div class="user-name">John Doe</div>
+                    <div class="user-details">IP: 192.168.1.100</div>
+                    <div class="user-details">browsing: /Documents</div>
+                </div>
+                <div style="display: flex; align-items: center; gap: 8px;">
+                    <div class="status-indicator"></div>
+                    <span style="font-size: 0.8rem;">Online</span>
+                </div>
+            </div>
+            
+            <div class="user-item">
+                <div>
+                    <div class="user-name">Jane Smith</div>
+                    <div class="user-details">IP: 192.168.1.101</div>
+                    <div class="user-details">browsing: /Photos</div>
+                </div>
+                <div style="display: flex; align-items: center; gap: 8px;">
+                    <div class="status-indicator"></div>
+                    <span style="font-size: 0.8rem;">Online</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="test-section">
+        <h2>3. User Identity</h2>
+        <div class="users-panel">
+            <h3>👤 Your Identity</h3>
+            <div style="display: flex; gap: 10px; align-items: center;">
+                <input type="text" placeholder="Enter your name..." id="testUsername">
+                <button class="btn btn-primary" onclick="setTestUsername()">Set Name</button>
+            </div>
+            <div id="currentTestIdentity" style="display: none; margin-top: 15px; padding: 15px; background: #f8f9fa; border-radius: 8px;">
+                <span>You are: <strong id="testCurrentUsername"></strong></span>
+                <button class="btn" onclick="showTestUsernameForm()" style="margin-left: 10px; background: #6c757d; color: white; font-size: 12px;">Change</button>
+            </div>
+        </div>
+    </div>
+    
+    <div class="test-section">
+        <h2>4. Recent Activities</h2>
+        <div class="users-panel">
+            <h3>📊 Recent Activities</h3>
+            <div style="display: grid; gap: 8px;">
+                <div style="display: flex; justify-content: space-between; padding: 12px; background: #f8f9fa; border-radius: 8px; border-left: 3px solid #3498db;">
+                    <div>
+                        <div style="font-weight: 600; color: #333; font-size: 0.9rem;">John Doe</div>
+                        <div style="font-size: 0.8rem; color: #666;">download: Downloaded photo.jpg</div>
+                    </div>
+                    <div style="font-size: 0.7rem; color: #666;">2m ago</div>
+                </div>
+                
+                <div style="display: flex; justify-content: space-between; padding: 12px; background: #f8f9fa; border-radius: 8px; border-left: 3px solid #3498db;">
+                    <div>
+                        <div style="font-weight: 600; color: #333; font-size: 0.9rem;">Jane Smith</div>
+                        <div style="font-size: 0.8rem; color: #666;">browsing: Viewing folder /Documents</div>
+                    </div>
+                    <div style="font-size: 0.7rem; color: #666;">5m ago</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        function setTestUsername() {
+            const username = document.getElementById('testUsername').value.trim();
+            if (username) {
+                document.getElementById('testCurrentUsername').textContent = username;
+                document.querySelector('#testUsername').parentElement.style.display = 'none';
+                document.getElementById('currentTestIdentity').style.display = 'block';
+            }
+        }
+        
+        function showTestUsernameForm() {
+            document.querySelector('#testUsername').parentElement.style.display = 'flex';
+            document.getElementById('currentTestIdentity').style.display = 'none';
+            document.getElementById('testUsername').value = '';
+            document.getElementById('testUsername').focus();
+        }
+        
+        // Simulate real-time updates
+        setInterval(() => {
+            const count = document.getElementById('testUsersCount');
+            const current = parseInt(count.textContent);
+            count.textContent = Math.max(1, current + Math.floor(Math.random() * 3) - 1);
+        }, 5000);
+    </script>
+</body>
+</html>
