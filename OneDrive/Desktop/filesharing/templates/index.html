@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LAN File Sharing</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🗂️ LAN File Sharing</h1>
+            <p>Share files easily across your local network</p>
+        </header>
+
+        <!-- Flash Messages -->
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                <div class="flash-messages">
+                    {% for category, message in messages %}
+                        <div class="flash-message flash-{{ category }}">{{ message }}</div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        {% endwith %}
+
+        <!-- Server Status -->
+        <div class="status-card">
+            <h2>📡 Server Status</h2>
+            <div class="status-info">
+                <div class="status-item">
+                    <strong>Local IP:</strong> 
+                    <span class="ip-address">{{ local_ip }}</span>
+                </div>
+                <div class="status-item">
+                    <strong>Port:</strong> 
+                    <span class="port">{{ port }}</span>
+                </div>
+                <div class="status-item">
+                    <strong>Server URL:</strong> 
+                    <span class="server-url">
+                        <a href="{{ server_url }}" target="_blank">{{ server_url }}</a>
+                    </span>
+                </div>
+                {% if shared_folder %}
+                <div class="status-item">
+                    <strong>Shared Folder:</strong> 
+                    <span class="shared-folder">{{ shared_folder }}</span>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+
+        <!-- Folder Selection -->
+        <div class="card">
+            <h2>📁 Select Folder to Share</h2>
+            <form method="POST" action="{{ url_for('set_folder') }}" class="folder-form">
+                <div class="input-group">
+                    <input type="text" name="folder_path" placeholder="Enter folder path (e.g., D:\MyFiles)" 
+                           value="{{ shared_folder or '' }}" required>
+                    <button type="submit" class="btn btn-primary">Share Folder</button>
+                </div>
+                <p class="help-text">
+                    💡 Enter the full path to the folder you want to share (e.g., C:\Users\YourName\Documents)
+                </p>
+            </form>
+        </div>
+
+        <!-- Actions -->
+        {% if shared_folder %}
+        <div class="actions-card">
+            <h2>🚀 Actions</h2>
+            <div class="action-buttons">
+                <a href="{{ url_for('browse') }}" class="btn btn-success">
+                    📂 Browse Shared Files
+                </a>
+                <a href="{{ url_for('connect') }}" class="btn btn-info">
+                    🔗 Connect to Others
+                </a>
+            </div>
+        </div>
+
+        <!-- QR Code -->
+        {% if qr_code %}
+        <div class="qr-card">
+            <h2>📱 QR Code</h2>
+            <p>Share this QR code with others on your network:</p>
+            <div class="qr-container">
+                <img src="{{ qr_code }}" alt="QR Code for {{ server_url }}" class="qr-code">
+            </div>
+            <p class="qr-url">{{ server_url }}</p>
+        </div>
+        {% endif %}
+
+        <!-- Upload Section -->
+        <div class="upload-card">
+            <h2>📤 Upload Files</h2>
+            <div class="upload-area" id="uploadArea">
+                <input type="file" id="fileInput" multiple style="display: none;">
+                <div class="upload-content">
+                    <div class="upload-icon">📁</div>
+                    <p>Click to select files or drag and drop</p>
+                    <button type="button" class="btn btn-secondary" onclick="document.getElementById('fileInput').click()">
+                        Choose Files
+                    </button>
+                </div>
+            </div>
+            <div id="uploadStatus" class="upload-status"></div>
+        </div>
+        {% else %}
+        <div class="info-card">
+            <h2>ℹ️ Getting Started</h2>
+            <ol>
+                <li>Enter the path to the folder you want to share</li>
+                <li>Click "Share Folder" to start sharing</li>
+                <li>Share your IP address and port with others on your network</li>
+                <li>Others can access your files by visiting your server URL</li>
+            </ol>
+        </div>
+        {% endif %}
+
+        <!-- Instructions -->
+        <div class="instructions-card">
+            <h2>📋 How to Use</h2>
+            <div class="instructions">
+                <div class="instruction-item">
+                    <strong>1. Share Files:</strong> Select a folder and others can access it via your IP
+                </div>
+                <div class="instruction-item">
+                    <strong>2. Access Others:</strong> Use the "Connect to Others" feature with their IP:Port
+                </div>
+                <div class="instruction-item">
+                    <strong>3. Network Only:</strong> This only works on your local network (LAN)
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>

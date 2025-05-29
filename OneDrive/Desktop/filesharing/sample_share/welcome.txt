@@ -1,0 +1,10 @@
+Welcome to LAN File Sharing!
+
+This is a sample file to test the sharing functionality.
+You can download this file to verify everything is working.
+
+Features:
+- Easy file browsing
+- Secure downloads
+- Mobile-friendly interface
+- QR code sharing

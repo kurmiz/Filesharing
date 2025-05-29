@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Browse Files - LAN File Sharing</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>📂 File Browser</h1>
+            <p>Browsing: {{ shared_folder_name }}</p>
+            <div class="header-actions">
+                <a href="{{ url_for('index') }}" class="btn btn-secondary">🏠 Home</a>
+                <a href="{{ url_for('connect') }}" class="btn btn-info">🔗 Connect to Others</a>
+            </div>
+        </header>
+
+        <!-- Flash Messages -->
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                <div class="flash-messages">
+                    {% for category, message in messages %}
+                        <div class="flash-message flash-{{ category }}">{{ message }}</div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        {% endwith %}
+
+        <!-- Breadcrumb Navigation -->
+        <div class="breadcrumb-card">
+            <nav class="breadcrumb">
+                <a href="{{ url_for('browse') }}" class="breadcrumb-item">🏠 Home</a>
+                {% for breadcrumb in breadcrumbs %}
+                    <span class="breadcrumb-separator">></span>
+                    <a href="{{ url_for('browse', subpath=breadcrumb.path) }}" class="breadcrumb-item">
+                        {{ breadcrumb.name }}
+                    </a>
+                {% endfor %}
+            </nav>
+        </div>
+
+        <!-- File List -->
+        <div class="files-card">
+            <div class="files-header">
+                <h2>📁 Contents</h2>
+                <div class="files-count">{{ items|length }} items</div>
+            </div>
+
+            {% if items %}
+            <div class="file-list">
+                {% for item in items %}
+                <div class="file-item {{ item.type }}">
+                    <div class="file-icon">
+                        {% if item.type == 'directory' %}
+                            📁
+                        {% else %}
+                            📄
+                        {% endif %}
+                    </div>
+                    <div class="file-info">
+                        <div class="file-name">
+                            {% if item.type == 'directory' %}
+                                <a href="{{ url_for('browse', subpath=(current_path + '/' + item.name) if current_path else item.name) }}" 
+                                   class="folder-link">{{ item.name }}</a>
+                            {% else %}
+                                {{ item.name }}
+                            {% endif %}
+                        </div>
+                        {% if item.type == 'file' %}
+                        <div class="file-size">{{ item.size }}</div>
+                        {% endif %}
+                    </div>
+                    <div class="file-actions">
+                        {% if item.type == 'file' %}
+                            <a href="{{ url_for('download_file', filename=(current_path + '/' + item.name) if current_path else item.name) }}" 
+                               class="btn btn-download" download>
+                                ⬇️ Download
+                            </a>
+                        {% else %}
+                            <a href="{{ url_for('browse', subpath=(current_path + '/' + item.name) if current_path else item.name) }}" 
+                               class="btn btn-open">
+                                📂 Open
+                            </a>
+                        {% endif %}
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            {% else %}
+            <div class="empty-folder">
+                <div class="empty-icon">📭</div>
+                <p>This folder is empty</p>
+            </div>
+            {% endif %}
+        </div>
+
+        <!-- Upload Section -->
+        <div class="upload-card">
+            <h2>📤 Upload Files Here</h2>
+            <div class="upload-area" id="uploadArea">
+                <input type="file" id="fileInput" multiple style="display: none;">
+                <div class="upload-content">
+                    <div class="upload-icon">📁</div>
+                    <p>Click to select files or drag and drop</p>
+                    <button type="button" class="btn btn-secondary" onclick="document.getElementById('fileInput').click()">
+                        Choose Files
+                    </button>
+                </div>
+            </div>
+            <div id="uploadStatus" class="upload-status"></div>
+        </div>
+
+        <!-- Quick Actions -->
+        <div class="quick-actions">
+            <button onclick="window.location.reload()" class="btn btn-refresh">
+                🔄 Refresh
+            </button>
+            {% if current_path %}
+            <a href="{{ url_for('browse', subpath='/'.join(current_path.split('/')[:-1])) if '/' in current_path else url_for('browse') }}" 
+               class="btn btn-back">
+                ⬅️ Back
+            </a>
+            {% endif %}
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+    <script>
+        // Set current path for uploads
+        window.currentPath = "{{ current_path }}";
+    </script>
+</body>
+</html>

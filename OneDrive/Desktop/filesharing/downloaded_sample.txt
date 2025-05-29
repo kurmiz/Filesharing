@@ -1,0 +1,11 @@
+This is a sample file for testing the LAN File Sharing application.
+
+You can download this file to test the download functionality.
+
+Features tested:
+- File browsing
+- File downloading
+- Folder navigation
+- Upload functionality
+
+Created by the LAN File Sharing Web App!
